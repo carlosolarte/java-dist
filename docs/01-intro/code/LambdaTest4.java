@@ -1,5 +1,9 @@
 import java.util.*;
 
+interface Temp{
+
+};
+
 class LambdaTest4{
     public static void main(String arg[]){
         String[] L = new String[] {"car", "house", "building", "apple", "fruit"};

@@ -19,7 +19,7 @@ email: <olarte@lipn.univ-paris13.fr>
 
 ---
 ### About this course
-- __CM1__: Introduction, inheritance, functional programming, streams. 
+- __CM1__: Introduction, inheritance, functional programming in Java, streams. 
 - __CM2__: Threads
 - __CM3__: Network programming
 - __CM4__: Annotations and tools
@@ -47,7 +47,7 @@ Three principal domains:
 ## CM 1
 ---
 ### CM 1
-1. Recalling Object Programming Concepts
+1. Recalling object oriented programming concepts
 2. Inheritance 
 3. Functional programming in Java
 4. Streams 
@@ -141,7 +141,7 @@ pubic String getAddress(){
 ### Classes
 #### Static members
 - Accessible without instantiating the class
-- Known also as class variables 
+- Known also as _class variables_ 
 
 ```java
     private static final String companyExp = 
@@ -177,7 +177,8 @@ public Person(Object o){
 ```
 - Initialization of attributes 
 - _Object_: The base class in the Java's class hierarchy
->> Methods such as `toString`, `equals`, `wait`, `notify`, etc are defined in `Object` (and __overridden__ by subclasses). 
+>> Methods such as `toString`, `equals`, `wait`, `notify`, etc are defined in
+`Object` (and __overridden__ by subclasses). 
 
 ---
 ### Classes
@@ -202,12 +203,9 @@ P.hello();
 - Check a boolean condition and rise an error if it evaluates to false. 
 - The option `-ea` (enable assertions) must be used when executing the virtual machine. 
 - _instanceof_: Checking if an object is an instance of a given class. 
-
----
-
 ---
 ### Inheritance 
-- Java does not support multiple inheritance 
+- Java does not support _multiple inheritance_ 
 
 ```java
 class B extends A{
@@ -256,7 +254,7 @@ class Dog extends Animal{
     }
 }
 ```
->> A class needs to be declared as `abstract` if it does not implement
+>> A class needs to be declared `abstract` if it does not implement
 all the inherited abstract methods. 
 
 ---
@@ -276,7 +274,7 @@ class Cat extends Animal{
 ```
 
 ---
-### Abstract classes and polymorphism 
+### Polymorphism 
 
 ```
 class AnimalTest{
@@ -308,8 +306,11 @@ public class DigestServer implements DigestListener {
     ...
 }
 ```
+>> A non-abstract class must implement all the methods declared in the
+interfaces it implements. 
+
 ---
-### Exceptions and Error handling
+### Exceptions and error handling
 ```java
 import java.util.NoSuchElementException;
 
@@ -351,7 +352,7 @@ class ExpandableArray {
 ```java
     public static void main(String arg[]){
         ExpandableArray A = new ExpandableArray(5);
-        Object x = A.get(0); //
+        Object x = A.get(0); // upss...
 ```
 
 Upss:
@@ -363,11 +364,15 @@ Exception in thread "main" java.util.NoSuchElementException
 ---
 ### Exceptions and Error handling
 
-- Subclasses of `java.lang.RuntimeException` are _unchecked exceptions_. If not treated they propagate outside the method
-- Subclasses of `java.lang.Exception` (except extensions of `RuntimeException`) are _checked exceptions_ that need to be reported/handled. 
+- Subclasses of `java.lang.RuntimeException` are _unchecked exceptions_ (no need
+to declare/handle them). 
+- Subclasses of `java.lang.Exception`
+(except extensions of `RuntimeException`) are _checked exceptions_ that need to
+be reported/handled. 
+- If an exception is not treated, it  propagates outside the method 
 
 ---
-### Exceptions and Error handling
+### Exceptions and error handling
 ```
 class BadIndex extends Exception{
     public BadIndex(int i){
@@ -385,20 +390,20 @@ class ExpandableArrayEx {
 
     public static void main(String arg[]){
         ExpandableArrayEx A = new ExpandableArrayEx(5);
-        // Does not compile!
-        A.get(0);
+        // This program does not compile!
+        A.get(0); // Problem!
         ...
     }
 }
 ```
-Upss...
+Upss (__unreported exception BadIndex__)...
 ```
 ExpandableArrayEx.java:34: error: unreported exception BadIndex; must be caught or declared to be thrown
         A.get(0);
 ```
 
 ---
-### Exceptions and Error handling
+### Exceptions and error handling
 ```
 
 class ExpandableArrayEx {
@@ -422,7 +427,8 @@ try{
     // Block try
 }
 catch (ExceptionType E1){
-    // Executed if ExType is thrown 
+    // Executed if an instance (subclasses included) 
+    // of ExceptionType is thrown 
 }
 ...
 catch (ExceptionType En){
@@ -434,13 +440,14 @@ finally{
 ```
 
 ---
-### Exceptions and Error handling
+### Exceptions and error handling
 Next CMs:
 - `IOException`
 - `InterruptedException`
+- `HTTPException` 
 - ...
 ---
-### Writing Programs
+### Writing programs
 - 1 kind of object = 1 class
 - 1 project = 1 executable = 1 set of classes (divided into packages)
 - "ordinary" software => 1 project 
@@ -486,7 +493,8 @@ Storing several object of type `Enseignant`
 import java.util.*;
 public class ListeEnseignant {
 
-    private List < Enseignant > personnel = new ArrayList < >();
+    private List < Enseignant > personnel = 
+                 new ArrayList < >();
     public List< Enseignant > getPersonnel() {
         return personnel;
     }
@@ -504,7 +512,8 @@ public class Enseignant {
     private String nom;
     private int age;
     private float salaire;
-    private static List < Enseignant > personnel = new ArrayList < >(); 
+    private static List < Enseignant > personnel = 
+      new ArrayList < >(); 
     ...
 
     public static void addEnseignant(Enseignant enseignant) { 
@@ -548,6 +557,15 @@ for(Iterator< String > I = C.iterator(); I.hasNext();){
 
 ```
 
+`Iterator` is an interface! 
+```java
+Interface Iterator< E >{
+ boolean    hasNext();
+ E  next();
+ ...
+ }
+```
+
 ---
 ### Java 1.5
 - _Boxing_:  automatic conversion between primitive types and their associated classes, e.g. `int` and `Integer`).
@@ -571,8 +589,9 @@ I = x ;
 ```
 ---
 ### Java 1.5
-- Stubs for RMI dynamically generated (more on CM3)
-- _Annotations_ : allows intermediary softwares (compilers, interpreters, environnements, ...) to test, verify or even add code. (more on CM4)
+- Stubs for _RMI_ dynamically generated (more on CM3)
+- _Annotations_ : allow intermediary softwares (compilers, interpreters,
+environnements, ...) to test, verify or even add code. (more on next CMs)
 
 ---
 ### Java 1.6
@@ -586,30 +605,31 @@ I = x ;
 - Security (CM4)
 
 ---
-### Lambda Expressions and Streams
+### Lambda expressions and streams
 
 Programming actions in GUIs:
 ```java
-btn.setOnAction(new EventHandler<ActionEvent>() {
+btn.setOnAction(new EventHandler< ActionEvent >() {
         public void handle(ActionEvent event) {
             System.out.println("Hello World!");
         }
 });
 ```
-- Creates an anonymous class (_overriding_) the method `handle` from the class `EventHandler < ... >`
+- Creates an anonymous class _extending_ `EventHandler` and 
+_overriding_ the method `handle`.
 - Too complicated, right?
 
 ---
-### Lambda Expressions and Streams
+### Lambda expressions and streams
 What about data processing:
- - _filter_ the list of people according to some criteria
- - _for each_ person compute some information
- - ...
+- _filter_ the data according to some criteria
+- _for each_ item compute some information
+- ...
 
- Should we write different methods for different criteria? 
+ Should we write different methods for different criteria and calculations? 
 
 ---
-### Lambda Expressions
+### Lambda expressions
 Here a class implementing an interface
 ```java
 interface Operator{
@@ -668,16 +688,24 @@ class LambdaTest3{
 }
 ```
 ---
-### Lambda Expressions and Streams
+### Lambda Expressions
+_General form_
+```
+ (x1,...,xn) -> exp
+```
+
+---
+### Lambda expressions and streams
 Consider the following method declared in class `Arrays`:
 ```java
-public static < T > void sort(T[] a, Comparator< ? super T > c);
+public static < T > void sort(T[] a, 
+                              Comparator< ? super T > c);
 ```
-- `< ? super T >` means `T` or superclasses of `T`
+- `< ? super T >` means `T` or a superclass of `T`
 
 `Comparator` is defined as follows:
 ```java
-public interface Comparator<T>{
+public interface Comparator< T >{
     int	compare(T o1, T o2);
     boolean	equals(Object obj);
 }
@@ -688,17 +716,18 @@ public interface Comparator<T>{
 Defining an anonymous class:
 ```java
 class LambdaTest4{
-    public static void main(String arg[]){
-        String[] L = new String[] {"car", "house", "building", "apple", "fruit"};
-        Comparator<String> CLength = new Comparator <String> (){
-            public int compare(String s1, String s2){
-                return s1.length() - s2.length();
-            }
-        };
+  public static void main(String arg[]){
+      String[] L = new String[] {"car", "house", "building", "apple", "fruit"};
+      Comparator< String > CLength = 
+        new Comparator < String > (){
+           public int compare(String s1, String s2){
+               return s1.length() - s2.length();
+           }
+      };
 
-        Arrays.sort(L, CLength);
-        System.out.println(Arrays.toString(L));
-    }
+      Arrays.sort(L, CLength);
+      System.out.println(Arrays.toString(L));
+  }
 }
 ```
 ---
@@ -718,11 +747,26 @@ class LambdaTest5{
 }
 ```
 ---
+### Intermezzo... `default` 
+
+The interface `Compartor` __implements__ some `default` methods:
+```java
+default Comparator< T > reversed(){ ... }
+``` 
+Here an example:
+```java
+Comparator< String > C = (s1, s2) -> s1.length() - s2.length();
+Arrays.sort(L, C.reversed());
+System.out.println(Arrays.toString(L));
+```
+
+- Interface (abstract) methods __cannot have body__.
+- But `default` methods can be implemented. 
+
+---
 ### Streams
 - Lazy structures! (elements are consumed when needed)
-- Quite good for processing large amounts of data (without materializing it). 
-
-
+- Quite good for processing large amounts of data (without storing it in memory).
 ---
 ### Streams
 Let's consider a simple class storing grades:
@@ -747,7 +791,7 @@ And a list of grades
 ```java
 class GradeStream{
     public static void main (String arg[]){
-        List<Grade> L = new ArrayList<>();
+        List< Grade > L = new ArrayList<>();
         L.add(new Grade("one"  , 4.5 ));
         L.add(new Grade("two"  , 8.5 ));
         L.add(new Grade("three", 9.2 ));
@@ -763,56 +807,65 @@ class GradeStream{
 ### Streams
 List all the grades above 5.0
 ```java
-        Stream<Grade> S =
-             L.stream()
-              .filter((Grade G) -> G.getGrade() >= 5.0);
+Stream< Grade > S =
+     L.stream()
+      .filter((Grade G) -> G.getGrade() >= 5.0);
 
-        // toArray materializes the stream!
-        System.out.println(Arrays.toString(S.toArray()));
+// toArray materializes the stream!
+System.out.println(Arrays.toString(S.toArray()));
 ```
-- _Filter_:  `Stream<T> filter(Predicate<? super T> predicate)`
-- _Predicate_ `Interface Predicate<T>{ boolean test(T t);}`
-
-
+These are the signatures for _Filter_ and _Predicate_:  
+```java
+Stream< T > filter(Predicate< ? super T > predicate)
+Interface Predicate<T>{ boolean test(T t);}
+```
 ---
 ### Streams
 Without materializing the stream
 ```java
-        L.stream()
-              .filter((Grade G) -> G.getGrade() >= 5.0)
-              .forEach( (Grade G) -> System.out.println(G))
-              ;
+L.stream()
+      .filter((Grade G) -> G.getGrade() >= 5.0)
+      .forEach( (Grade G) -> System.out.println(G))
+      ;
 ```
-- `forEach`: `void forEachOrdered(Consumer<? super T> action)`
-- _Consumer_: `Interface Consumer<T>{void accept(T t); }`
-
+The signatures for _forEach_ and _Consumer_ are:
+```java
+void forEachOrdered(Consumer< ? super T > action)
+Interface Consumer< T >{void accept(T t); }
+```
 ---
 ### Streams
 What about applying a function to each element?
 ```java
-        L.stream()
-            .map((Grade G) -> G.getGrade())
-            .forEach( (Double n) -> System.out.println(n))
-            ;
+L.stream()
+    .map((Grade G) -> G.getGrade())
+    .forEach( (Double n) -> System.out.println(n))
+    ;
 ```
-
-- _Map_: `Stream<R> map(Function<? super T,? extends R> mapper)`
-- _Functional interface_: `Interface Function<T,R>{R apply(T t);}
+Here the signatures for _Map_ and _Function_:
+```java
+Stream< R > map(Function< ? super T,? extends R > mapper)`
+Interface Function< T,R >{R apply(T t);}
+```
 
 ---
 ### Streams
-Some specialized Maps and aggragates
+Some specialized Maps and aggregates
 ```java
-        OptionalDouble R =
-            L.stream()
-            .mapToDouble((Grade G) -> G.getGrade())
-            .max()
-            ;
-        System.out.println(R);
+OptionalDouble R =
+    L.stream()
+    .mapToDouble((Grade G) -> G.getGrade())
+    .max()
+    ;
+System.out.println(R);
 ```
 - `mapToDouble` returns a `DoubleStream`
 - `DoubleStream` implements several functions as `average`, `sum`, `min`, etc. 
-
+---
+### Streams
+- _Functional interfaces_ provide target types for lambda expressions.
+- The informative annotation `@FunctionalInterface` is recommended when a functional interface is declared
+- The above mentioned interfaces are all functional interfaces. 
 
 ---
 ### Streams
@@ -820,5 +873,5 @@ Finally, functional programming in Java!
 
 <img src="emoji.png" width=400>
 ---
-### Lambda Expressions
+### Lambda expressions
 See more [here](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)
