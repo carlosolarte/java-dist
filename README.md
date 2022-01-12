@@ -2,9 +2,5 @@
 
 Master program at [USPN](https://www.univ-paris13.fr/)
 
-## [CM 1: Introduction (12.01.2022)](./01-intro)
-- Introduction, objectives and methodology 
-- Classes and interfaces in Java
-- Functional programming in Java
-- Streams
+See the slides [here](https://carlosolarte.github.io/java-dist/)
 
