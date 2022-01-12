@@ -2,6 +2,9 @@
 
 Master program at [USPN](https://www.univ-paris13.fr/)
 
+These slides have been built from the lecture notes
+of [Christophe Fouqueré](https://lipn.univ-paris13.fr/~fouquere/ENSEIGNEMENT/M1_PDJ/PDJ.pdf)
+
 ## [CM 1: Introduction (12.01.2022)](./01-intro)
 - Introduction, objectives and methodology 
 - Classes and interfaces in Java
