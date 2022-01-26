@@ -75,7 +75,7 @@ class Consumer implements Runnable{
                         System.out.println(E);
                     }
                 }
-                for(int i=1;i<Buffer.size;i++){
+                for(int i=1;i<=Buffer.size;i++){
                     System.out.println("[receive] " + B.get());
                     try{Thread.sleep(400);} catch (InterruptedException E){}
                 }

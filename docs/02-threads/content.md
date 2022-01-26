@@ -54,7 +54,7 @@ found = false;
 y=1;
 while(not found){
   y--;
-  found = f(x)==0;
+  found = f(y)==0;
 }
 ```
 <!-- .element: style="float: right; width: 48%" -->
@@ -126,7 +126,7 @@ x = 2 ;
 ```java
 // Program 2
 x = 1 ;
-x = 1 ;
+x += 1 ;
 ```
 <!-- .element: style="text-align: left; float: right; width: 48%" -->
 - Semantically, `P1` and `P2` are _equivalent_. 

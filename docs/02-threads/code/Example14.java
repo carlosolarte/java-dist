@@ -27,8 +27,10 @@ public class Example14 {
 
     public static void main(String arg[]){
         try{
-            ExecutorService service = Executors.newFixedThreadPool(2);
-            Future<Double> value = service.submit(new ComputingPI());
+            ExecutorService service = 
+                Executors.newFixedThreadPool(2);
+            Future<Double> value = 
+                service.submit(new ComputingPI());
             System.out.println("Invoking get on the future");
             System.out.println(value.get());
             System.out.println("After get");

@@ -38,7 +38,8 @@ public class Example15 {
         long start = System.currentTimeMillis();
         try{
             // An executor with 2 threads (try with only one!)
-            ExecutorService service = Executors.newFixedThreadPool(2);
+            ExecutorService service = 
+              Executors.newFixedThreadPool(2);
             // C1 computes on the first half of the array
             ComputingSum C1 = new ComputingSum(data,0,2);
             // C2 computes on the second half of the array
