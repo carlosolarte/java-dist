@@ -12,3 +12,11 @@ of [Christophe Fouqueré](https://lipn.univ-paris13.fr/~fouquere/ENSEIGNEMENT/M1
 - Functional programming in Java
 - Streams
 
+## [CM 2: Threads (12.01.2022)](./02-threads)
+- Concurrent programs
+- Threads
+- Runnable and callable 
+- Synchronization 
+- Pools of threads 
+
+
