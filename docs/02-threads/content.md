@@ -1025,3 +1025,210 @@ int sum = Arrays.stream(data)
     . sum()
     ;
 ```
+---
+### Dining Philosophers
+* Problem proposed by _Dijkstra_ for testing concurrency primitives. 
+* N philosophers spend their time around a table __thinking__ or __eating__. 
+* There is only one fork between each philosopher.
+* _Safety_: In order to eat, each philosopher needs two forks.
+* _Starvation freedom_: if one philosopher gets hungry, he will eventually eat.
+
+<img src="df.jpg" width=200 >
+---
+### Dining Philosophers
+- We are looking for _symmetric solutions_: the code of
+each Fork and Philosopher __must be the same__. 
+- _Synchronization problem_: how to guarantee the correct use of the forks?
+--- 
+### Dining Philosophers
+We consider the following states:
+```java
+enum STATE_PHILO {THINKING, HUNGRY , EATING;}
+enum STATE_FORK {FREE, INUSE;}
+```
+#### Class Fork
+- _take_(): Moving from `FREE` to `INUSE`
+- _release()_: Moving from `INUSE` to `FREE`
+
+#### Class Philosopher
+- _right/left_: the forks
+- _think()_: start thinking
+- _hungry()_: getting hungry and taking the forks
+- _eat()_: eating and releasing the forks  
+
+---
+### Alternative 1: Synchronized methods
+We shall "protect" the resources by using _synchronized_ methods:
+#### Class Fork
+```java
+public synchronized void take() throws StateException {
+	if (this.state == STATE_FORK.INUSE) 
+		throw new StateException();
+	this.state = STATE_FORK.INUSE ;
+}
+public synchronized void release() throws StateException{
+	if (this.state == STATE_FORK.FREE) 
+		throw new StateException();
+	this.state = STATE_FORK.FREE ;
+}
+```
+> _Note_: An attempt to grab an already taken fork results in a `StateException`
+---
+### Alternative 1: Synchronized methods
+We shall "protect" the resources by using _synchronized_ methods:
+#### Class Philosopher
+```java
+public void run(){
+	while(true){
+		try{
+			think(); hungry(); eat();
+		}
+		catch(Exception E){
+			System.out.println(E);
+		}
+	}
+}
+
+```
+---
+### Alternative 1: Synchronized methods
+We shall "protect" the resources by using _synchronized_ methods:
+#### Class Philosopher
+```java
+private void hungry() throws StateException, InterruptedException{
+	this.state = STATE_PHILO.HUNGRY;
+	right.take();
+	left.take();
+}
+
+private void eat() throws StateException, InterruptedException{
+	this.state = STATE_PHILO.EATING;
+	// Sleep for some time
+	right.release();
+	left.release();
+}
+```
+---
+### Alternative 1: Synchronized methods
+
+We shall "protect" the resources by using _synchronized_ methods:
+
+_Does it work?_
+---
+### Alternative 1: Synchronized methods
+
+We shall "protect" the resources by using _synchronized_ methods:
+
+_Does it work?_
+
+__NOT REALLY!__ ... __why__?
+```
+[~, ~, ~, ~, ~]  [Y, Y, Y, Y, Y]
+StateException: Non valid operation in the current state
+StateException: Non valid operation in the current state
+StateException: Non valid operation in the current state
+StateException: Non valid operation in the current state
+[~, E, ~, ~, ~]  [o, o, o, o, o]
+```
+---
+### Alternative 2: Synchronized statements
+Using _synchronized statements_ to take the lock on the forks:
+
+```java
+    public void run(){
+        while(true){
+            try{
+                think();
+                synchronized(right){
+                    synchronized(left){
+                        hungry(); eat();
+                    }
+                }
+            }
+            catch(Exception E){
+                System.out.println(E);
+            }
+        }
+    }
+```
+---
+### Alternative 2: Synchronized statements
+Using _synchronized statements_ to take the lock on the forks:
+
+_Does it work?_
+---
+### Alternative 2: Synchronized statements
+Using _synchronized statements_ to take the lock on the forks:
+
+_Does it work?_ Not __always__! Why?
+```
+[~, ~, ~, ~, ~]  [Y, Y, Y, Y, Y]
+[~, E, ~, E, ~]  [Y, o, o, o, o]
+[~, ~, ~, E, ~]  [Y, Y, Y, o, o]
+[~, ~, E, ~, ~]  [Y, Y, o, o, Y]
+[~, ~, ~, E, ~]  [Y, Y, Y, o, o]
+[E, ~, ~, ~, ~]  [o, o, Y, Y, Y]
+[~, E, ~, ~, ~]  [Y, o, o, Y, Y]
+[~, ~, ~, ~, ~]  [Y, Y, Y, Y, Y]
+[~, ~, ~, ~, ~]  [Y, Y, Y, Y, Y]
+[~, ~, ~, ~, ~]  [Y, Y, Y, Y, Y]
+...
+```
+---
+### Alternative 3: Conditions
+- Both forks need to be taken 
+- Failing in taking one should not block the whole system.
+- We need a mechanism to _wait_ until a _condition_ becomes true. 
+
+#### Conditions
+> Conditions (aka condition queues or
+condition variables) provide a means for one thread to
+_suspend_ execution until _notified_ by another
+thread that some state condition may now be true.
+---
+### Alternative 3: Conditions
+- The philosopher takes a _lock_ (an object shared by all the processes).
+- _While_ the 2 forks are not available, it _waits_. 
+-  While waiting, the _lock_ is released for other threads
+- When _notified_ the thread checks again the condition
+- If the condition is true, the lock is kept and the
+operations are safely performed. 
+---
+### Alternative 3: Conditions
+```java
+Lock lock = new ReentrantLock();
+Condition control = lock.newCondition();
+```
+> _lock_ and _condition_ shared by all the processes.
+
+---
+### Alternative 3: Conditions
+```java
+private void hungry() throws StateException, InterruptedException{
+	this.state = STATE_PHILO.HUNGRY;
+	this.lock.lock();
+		while(!right.isFree() || !left.isFree()){
+			this.control.await();
+		}
+		// At this point, it is safe to grab both forks
+		right.take();
+		left.take();
+	this.lock.unlock();
+}
+```
+> _wait_ until the condition is true
+---
+### Alternative 3: Conditions
+```java
+private void eat() throws StateException, InterruptedException{
+	this.state = STATE_PHILO.EATING;
+	// Sleep for a while
+
+	this.lock.lock();
+		right.release();
+		left.release();
+		this.control.signalAll();
+	this.lock.unlock();
+}
+```
+> _notifies_ that the state of the forks has changed. 
