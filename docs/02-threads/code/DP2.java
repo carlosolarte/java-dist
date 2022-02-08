@@ -1,3 +1,6 @@
+/**
+ * This "solution" may lead to a deadlock!
+ */
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -59,7 +62,8 @@ class Philosopher extends Thread{
                 think();
                 synchronized(right){
                     synchronized(left){
-                        hungry(); eat();
+                        hungry(); 
+                        eat();
                     }
                 }
             }
@@ -113,7 +117,7 @@ public class DP2{
             philos[i].start();
         }
 
-        // Each second prints the state of the of the system
+        // Each second prints the state of the system
         try{
             while(true){
                 System.out.print(Arrays.toString(philos) + " --- ");

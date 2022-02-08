@@ -1,5 +1,6 @@
 /**
  * Implementation of Dinning Philosophers
+ * Using an object Condition to wait for the use of the forks 
  */
 
 import java.util.*;
@@ -65,7 +66,7 @@ class Philosopher extends Thread{
     private void think() throws InterruptedException{
         this.state = STATE_PHILO.THINKING;
         while(!this.RGenerator.nextBoolean()){
-            Thread.sleep(this.RGenerator.nextInt(5000));
+            Thread.sleep(this.RGenerator.nextInt(1500));
         }
     }
     private void hungry() throws StateException, InterruptedException{
@@ -82,7 +83,7 @@ class Philosopher extends Thread{
     private void eat() throws StateException, InterruptedException{
         this.state = STATE_PHILO.EATING;
         while(!this.RGenerator.nextBoolean()){
-            Thread.sleep(this.RGenerator.nextInt(5000));
+            Thread.sleep(this.RGenerator.nextInt(1500));
         }
 
         this.lock.lock();
@@ -128,7 +129,7 @@ public class DP3{
             philos[i].start();
         }
 
-        // Each second prints the state of the of the system
+        // Each second prints the state of the system
         try{
             while(true){
                 System.out.print(Arrays.toString(philos) + " --- ");

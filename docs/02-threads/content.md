@@ -147,7 +147,7 @@ x += 1 ;
  * A user can download several files at the same time. 
 - But also extra difficulties show up:
  * What about 2 users modifying the same file?
- * Denil-of-service attacks 
+ * Denial-of-service attacks 
  * Replication of data
  * ...
 
@@ -163,7 +163,7 @@ Two ways of implementing concurrent executions:
  * _Lightweight_ processes (fewer resources on creation).
  * Memory is shared 
  * The Java Virtual machine creates a single process (running several threads). 
- * Every Java program has at least one thread... the _main thread_. This thread
+ * Every Java program has at least one thread... The _main thread_. This thread
  may create other threads. 
 ---
 ### Threads
@@ -241,7 +241,7 @@ public class Example2 extends Thread {
 ### Thread.sleep
 - Invoking `Thread.sleep` makes the processor available to other threads. 
 - You do not have any guarantee that the sleeping time will be _exactly_ the parameter used. 
-- This method may throw `InterruptedException`... since Threads can be __interrupted__. 
+- This method may throw `InterruptedException`... Since Threads can be __interrupted__. 
 
 ---
 ### Interrupting threads
@@ -1030,7 +1030,7 @@ int sum = Arrays.stream(data)
 * Problem proposed by _Dijkstra_ for testing concurrency primitives. 
 * N philosophers spend their time around a table __thinking__ or __eating__. 
 * There is only one fork between each philosopher.
-* _Safety_: In order to eat, each philosopher needs two forks.
+* _Safety_: In order to eat, the philosophers need two forks.
 * _Starvation freedom_: if one philosopher gets hungry, he will eventually eat.
 
 <img src="df.jpg" width=200 >
@@ -1072,7 +1072,8 @@ public synchronized void release() throws StateException{
 	this.state = STATE_FORK.FREE ;
 }
 ```
-> _Note_: An attempt to grab an already taken fork results in a `StateException`
+> An attempt to grab an _already taken_ fork results in
+> a `StateException`
 ---
 ### Alternative 1: Synchronized methods
 We shall "protect" the resources by using _synchronized_ methods:
@@ -1141,12 +1142,12 @@ Using _synchronized statements_ to take the lock on the forks:
                 think();
                 synchronized(right){
                     synchronized(left){
-                        hungry(); eat();
+                        hungry();  // take the forks
+                        eat();
                     }
                 }
             }
-            catch(Exception E){
-                System.out.println(E);
+            catch(Exception E){ System.out.println(E);
             }
         }
     }
@@ -1175,8 +1176,15 @@ _Does it work?_ Not __always__! Why?
 ...
 ```
 ---
+### Alternative 2: Synchronized statements
+Using _synchronized statements_ to take the lock on the forks:
+
+_Does it work?_ Not __always__! 
+
+What about a _non-symmetric solution_ ?
+---
 ### Alternative 3: Conditions
-- Both forks need to be taken 
+- Both forks need to be taken to proceed 
 - Failing in taking one should not block the whole system.
 - We need a mechanism to _wait_ until a _condition_ becomes true. 
 
@@ -1187,9 +1195,9 @@ _suspend_ execution until _notified_ by another
 thread that some state condition may now be true.
 ---
 ### Alternative 3: Conditions
-- The philosopher takes a _lock_ (an object shared by all the processes).
+- The philosopher takes a _lock_ (an object shared by all the threads).
 - _While_ the 2 forks are not available, it _waits_. 
--  While waiting, the _lock_ is released for other threads
+-  While waiting, the _lock_ is __released__ for other threads (the system continues working!)
 - When _notified_ the thread checks again the condition
 - If the condition is true, the lock is kept and the
 operations are safely performed. 

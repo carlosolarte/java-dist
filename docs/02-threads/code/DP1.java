@@ -1,3 +1,7 @@
+/**
+ * This implementation is wrong! It might be the case that two philosophers
+ * gran the same fork (thus throwing a StateException
+ */
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -19,6 +23,7 @@ class Fork {
         this.state = STATE_FORK.FREE ;
     }
 
+    // Synchronizing the take/release methods is NOT enough!
     public synchronized void take() throws StateException {
         if (this.state == STATE_FORK.INUSE) 
             throw new StateException();
@@ -108,7 +113,7 @@ public class DP1{
             philos[i].start();
         }
 
-        // Each second prints the state of the of the system
+        // Each second prints the state of the system
         try{
             while(true){
                 System.out.print(Arrays.toString(philos) + " --- ");
