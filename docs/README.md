@@ -27,7 +27,7 @@ of [Christophe Fouqueré](https://lipn.univ-paris13.fr/~fouquere/ENSEIGNEMENT/M1
 - Multicast (MulticastSocket)
 - RMI
 
-## [CM 4: Network Programming (23/02/2022)](./04-misc)
+## [CM 4: Misc (23/02/2022)](./04-misc)
 - Annotations (and a bit of reflection)
 - Databases
 - RESTful Web Services
