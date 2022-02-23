@@ -525,9 +525,14 @@ while(true){
 - _Remote Method Invocation_
 - The object oriented version of RPC (__Remote Procedure Call__)
 - Objects are registered on a _name service_
-- The client obtains a _remote_ reference to the object
+- The client obtains a _remote reference_ to the object
 - Calls to methods of the (_remote_) object look  __local__!
 
+---
+### RMI
+The RMI protocols builds on top of:
+- Java Object _Serialization_: marshaling  and returning data
+- The HTTP protocol: to _POST_ remote method invocations. 
 ---
 ### RMI
 First an _interface_ must be defined: 
@@ -595,7 +600,7 @@ registry.bind("Server", stub);
 ```
 ---
 ### RMI
-The client makes calls to methods as if it were a local object: 
+The client makes calls to methods as if the object were local:
 ```java
 // Service of names
 Registry registry = LocateRegistry.getRegistry("127.0.0.1");
@@ -605,6 +610,8 @@ PersonService stub = (PersonService) registry.lookup("Server");
 for(int i=1;i<=1000;i++){
 	stub.addPerson("Person-" + R.nextInt(2000),new Date());
 ```
+
+The representation of the remote object is usally called _proxy_ or _stub_.
 
 ---
 ### RMI
@@ -618,3 +625,117 @@ For executing the example:
 - Remote calls from different clients might be executed concurrently. 
 - Better to avoid _race conditions_!
 - Interoperability with other languages is possible (CORBA / IIOP)
+---
+### RMI
+- An access to a  _remote object_, implementing `Remote`,  is by reference : Clients may change the state
+of the server by calling its methods. 
+- Objects as parameters and returned, using `Serializable`, are "copies" (by value). 
+---
+### RMI Callbacks
+
+Suppose that we need an object to be notified when a new person is added:
+
+- We may send requests to the server each T seconds
+- But this is clearly not a good design
+- What about callbacks and notifications?
+
+---
+### RMI Callbacks
+- A _listener_ (client) will register in the server
+- The server __notifies__ all the registered clients
+- The client needs to execute a method from the server (`add`)
+- The server needs to execute a method from the client (`notify`)
+
+---
+### RMI Callbacks
+Two interfaces : one implemented by the client and one  implemented by the server. 
+
+_Server side_
+```java
+public interface PersonService extends Remote {
+
+        // Adding a new person to the database
+        void addPerson(String name, Date bday) throws RemoteException;
+
+        // Adding a new client willing to be notified when new people is added
+        void addListener(PersonMonitor PM) throws RemoteException;
+}
+
+```
+
+---
+### RMI Callbacks
+Two interfaces : one implemented by the client and one  implemented by the server. 
+
+_Client side_
+```java
+public interface PersonMonitor extends Remote {
+        // Notifying when a new person is added
+        void notifyNewPerson(Person P) throws RemoteException;
+}
+```
+
+---
+### RMI Callbacks
+
+The server implements `PersonService`:
+```java
+public class Server implements PersonService {
+    private List< Person > database = new ArrayList<>();
+    private List< PersonMonitor > listeners = new ArrayList<>();
+
+    @Override
+    public synchronized void addPerson(String name, Date bday){
+        System.out.println("["+name+"] added");
+        Person P = new Person(name,bday);
+        this.database.add(P);
+        this.notifyAll(P);
+    }
+
+    private void notifyAll(Person P){
+        for(PersonMonitor listener : listeners){
+            try{
+                listener.notifyNewPerson(P);
+            }
+            catch(RemoteException E){
+                System.out.println(E);
+            }
+        }
+    }
+```
+---
+### RMI Callbacks
+
+The server implements `PersonService`:
+- Note that, after adding a person, all the listeners are notified
+- The server is calling a  method from a remote object 
+
+---
+### RMI Callbacks
+
+For the client, we need to specify that it is a remote object:
+- Either we can register it in the name service
+- Or we make it a subclass of UnicastRemoteObject
+- Otherwise, it will be simply "copied" (after serialized). 
+
+```java
+public class Monitor extends UnicastRemoteObject 
+                     implements PersonMonitor {
+
+    public Monitor() throws RemoteException{
+    }
+
+    @Override
+    public  void notifyNewPerson(Person P){
+        System.out.println("["+P.getName()+"] was added");
+    }
+
+}
+```
+---
+### RMI Callbacks
+For executing the example:
+1. Run `rmiregistry` (register service, running on port 1099)
+2. Run the server
+3. Run ClientAdd  (adding new people to the database)
+4. Run ClientMonitor (to be notified)
