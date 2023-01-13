@@ -36,7 +36,6 @@ class GradeStream{
         Stream<Grade> S =
              L.stream()
               .filter((Grade G) -> G.getGrade() >= 5.0);
-
         // toArray materializes the stream!
         System.out.println(Arrays.toString(S.toArray()));
     
@@ -56,6 +55,7 @@ class GradeStream{
             .max()
             ;
         System.out.println(R);
+        */
              
 
     }

@@ -4,7 +4,7 @@
 --- 
 Carlos Olarte
 
-email: <olarte@lipn.univ-paris13.fr>
+email: <olarte@lipn.fr>
 
 ---
 ### About this course
@@ -12,8 +12,7 @@ email: <olarte@lipn.univ-paris13.fr>
 - I will assume (good) knowledge of programming
 - Some details are left for further self study
 
-#### TDs: 24h
-- (Hopefully) in a lab
+#### TPs: 24h
 - IDEs: Eclipse or Netbeans
 - My favorite... vim ! ;-)
 
@@ -28,7 +27,7 @@ email: <olarte@lipn.univ-paris13.fr>
 #### Grades
 
 1. Moderate size project (small distributed application). 
-2. Two exams 
+2. Exam 
 
  N = (2 * exam + project)/3
  ---
@@ -48,13 +47,13 @@ Three principal domains:
 ---
 ### CM 1
 1. Recalling object oriented programming concepts
-2. Inheritance 
+2. Inheritance and polymorphism 
 3. Functional programming in Java
 4. Streams 
 ---
 ### Classes
 
-Class = Structure + Methods
+Class = Attributes (Data) + Methods (Behavior)
 
 ---
 ### Classes
@@ -68,7 +67,7 @@ public class Person {
     private static final String companyExp 
        = new String("unknown");
 
-    public Person(Object o){
+    public Person(Object o){ // Really? it can be a string ;-)
         assert o instanceof String ;
         String name = (String) o;
         this.name = (String) o;
@@ -135,7 +134,7 @@ pubic String getAddress(){
 * Fields should be `private`
 * read/write control on field values
 * easier for logging, security 
-* getters and setters to be systematically used!
+* getters and setters must be systematically used!
 
 ---
 ### Classes
@@ -203,6 +202,118 @@ P.hello();
 - Check a boolean condition and rise an error if it evaluates to false. 
 - The option `-ea` (enable assertions) must be used when executing the virtual machine. 
 - _instanceof_: Checking if an object is an instance of a given class. 
+
+---
+### Method toString
+- Converting objects to strings 
+- Quite useful for "printing" the state of the object (and debugging)
+
+```java
+@Override
+public String toString(){
+    return "Name= " + this.getName() + " email: " + this.getEmail();
+}
+```
+---
+### Equals
+
+What is the result of 
+
+```java
+String s1 = "hello";
+String s2 = s1 ;
+String s3 = "hello" ;
+
+// s1 == s2 ?
+// s1 == s3 ?
+```
+---
+### Equals
+- `==` : The same object in memory
+- `.equals()` : comparing based on the content
+- The following method in class `Object` must be overwritten:
+
+```java
+public boolean equals(Object obj)
+```
+
+---
+### Equals
+
+An example:
+```java
+public boolean equals(Object obj) {
+  if (!(obj instanceof Person)) {
+    return false;
+  }
+  Person p = (Person) obj;
+  // Assuming that ID is unique 
+  return this.getId() == obj.getId();
+}
+```
+
+---
+### Cloning 
+
+What is the result of 
+```java
+Person p1 = new Person("carlos");
+Person p2 = p1 ;
+p2.setAddress("...");
+```
+
+Does `p1` change?
+
+---
+### Cloning 
+
+- The method `clone` must be overridden 
+- The class must implement the interface `Cloneable` (more on this later)
+
+```java
+Person p1 = new Person("carlos");
+Person p2 = p1.clone() ;
+```
+The contract:
+```java
+- x.equals(x.clone)
+- x != x.clone()
+- x.getClass() == x.clone().getClass()
+```
+
+---
+### Cloning 
+```java
+class Person implements Cloneable{
+  ...
+  public Object clone() {
+   Person leClone = null;
+   try {
+    leClone = (Person) super.clone();
+   }
+   catch (CloneNotSupportedException e) {
+     throw new InternalError("The class does not support cloneable!");
+  }
+  // Clonning other attributes (if needed)
+  return leClone;
+ }
+}
+```
+
+---
+### Inheritance 
+
+Why do we need it?
+
+---
+### Inheritance 
+
+Why do we need it?
+
+* Build classes from existing ones (specialization)
+* Reuse the code of the superclass
+* Define common abstractions
+
 ---
 ### Inheritance 
 - Java does not support _multiple inheritance_ 
@@ -380,7 +491,7 @@ class BadIndex extends Exception{
     }
 }
 
-class ExpandableArrayEx {
+class ExpandableArray {
     ...
     public Object get(int i) throws BadIndex {
         if (i<0 || i>= size)
@@ -406,7 +517,7 @@ ExpandableArrayEx.java:34: error: unreported exception BadIndex; must be caught 
 ### Exceptions and error handling
 ```
 
-class ExpandableArrayEx {
+class ExpandableArray {
     ...
         public static void main(String arg[]){
         ExpandableArrayEx A = new ExpandableArrayEx(5);
@@ -455,6 +566,12 @@ Next CMs:
 - 1 project =
   - 1 class Main (the main initializer) 
   - 1 class per kind of object
+
+---
+### Collections
+Image from <a href="https://www.javatpoint.com/collections-in-java">JavaTPoint</a>
+
+<img src="https://static.javatpoint.com/images/java-collection-hierarchy.png">
 ---
 ### Collections
 
@@ -537,6 +654,89 @@ public interface List< E >
 ```
 
 ---
+### Generic Types
+
+```java
+public class ArrayList< E > extends AbstractList< E >
+implements List< E >, RandomAccess, Cloneable, Serializable{
+    ArrayList(Collection< ? extends E > c){...}
+    E get(int x);
+    boolean add(E e);
+    boolean	removeAll(Collection< ? > c);
+    ...
+}
+```
+
+---
+### Generic Types
+Assume that `A` is a subclass of `B`:
+
+-  Is `List< A > ` a subclass of `List< B >`? 
+-  An object of type `A` can be added in a `List< B >`?
+-  An object of type `B` can be added in a `List< A >`?
+-  Is `ArrayList < A >` a subclass of `List < A >`?
+
+---
+### Generic Types: Wildcards 
+- `?` : unbounded wildcard
+- `? extends C` : wildcard with an upper bound (all subtypes of `C`)
+- `? super C` : wildcard with lowerbound (all supertypes of `C`)
+
+---
+### Generic Types: Wildcards 
+Consider a method 
+```java
+void dosomething(List< ? extends C > L)
+```
+- What are valid parameters?
+- Can `L.add(x)` be called inside `dosomething` ?
+---
+
+### Generic Types: Wildcards 
+```java
+class A{ }
+
+class B extends A{ }
+
+class C extends B{ }
+
+public class Joker{
+    public void m1 (List< ? extends B > L){ }
+    public void m2 (List< ? super B > L){ }
+    public void m3 (List< ? > L){ }
+
+    public static void main(String arg[]){
+        List< A > la = new ArrayList< >();
+        List< B > lb = new ArrayList< >();
+        List< C > lc = new ArrayList< >();
+        Joker J = new Joker();
+        J.m1(lb); J.m1(lc);
+        J.m2(lb); J.m2(la);
+        // J.m1(la); // error!!
+        // J.m2(lc); // error!!
+        J.m3(la); J.m3(lb); J.m3(lc);
+    }
+}
+```
+
+---
+### Java 1.5
+
+Iteration becomes easier:
+```java
+Interface Iterable< T >{
+     Iterator< T > iterator() ;
+     ...
+}
+
+Interface Iterator< E >{
+    boolean hasNext();
+    E next(); 
+    ...
+}
+```
+
+---
 ### Java 1.5
 
 Iteration becomes easier:
@@ -555,15 +755,6 @@ for(Iterator< String > I = C.iterator(); I.hasNext();){
     ...
 }
 
-```
-
-`Iterator` is an interface! 
-```java
-Interface Iterator< E >{
- boolean    hasNext();
- E  next();
- ...
- }
 ```
 
 ---
@@ -591,11 +782,11 @@ I = x ;
 ### Java 1.5
 - Stubs for _RMI_ dynamically generated (more on CM3)
 - _Annotations_ : allow intermediary softwares (compilers, interpreters,
-environnements, ...) to test, verify or even add code. (more on next CMs)
+environnements, ...) to test, verify or even add code (more on next CMs)
 
 ---
 ### Java 1.6
-- JAX-WS : web services (CM3/4)
+- JAX-WS : web services (CM4)
 - JDBC : API to data bases (CM4)
 
 ---
@@ -608,6 +799,12 @@ environnements, ...) to test, verify or even add code. (more on next CMs)
 ### Lambda expressions and streams
 
 Programming actions in GUIs:
+```java
+Interface EventHandler< T extends Event >{
+    void handle(T event);}
+```
+
+How to use it?
 ```java
 btn.setOnAction(new EventHandler< ActionEvent >() {
         public void handle(ActionEvent event) {
@@ -701,7 +898,6 @@ Consider the following method declared in class `Arrays`:
 public static < T > void sort(T[] a, 
                               Comparator< ? super T > c);
 ```
-- `< ? super T >` means `T` or a superclass of `T`
 
 `Comparator` is defined as follows:
 ```java
@@ -811,13 +1007,16 @@ Stream< Grade > S =
      L.stream()
       .filter((Grade G) -> G.getGrade() >= 5.0);
 
+// Lazy: nothing is done at this point
+
 // toArray materializes the stream!
 System.out.println(Arrays.toString(S.toArray()));
 ```
 These are the signatures for _Filter_ and _Predicate_:  
+
 ```java
 Stream< T > filter(Predicate< ? super T > predicate)
-Interface Predicate<T>{ boolean test(T t);}
+interface Predicate< T >{ boolean test(T t);}
 ```
 ---
 ### Streams
@@ -831,7 +1030,7 @@ L.stream()
 The signatures for _forEach_ and _Consumer_ are:
 ```java
 void forEachOrdered(Consumer< ? super T > action)
-Interface Consumer< T >{void accept(T t); }
+interface Consumer< T >{void accept(T t); }
 ```
 ---
 ### Streams
@@ -845,7 +1044,7 @@ L.stream()
 Here the signatures for _Map_ and _Function_:
 ```java
 Stream< R > map(Function< ? super T,? extends R > mapper)`
-Interface Function< T,R >{R apply(T t);}
+interface Function< T,R >{R apply(T t);}
 ```
 
 ---
@@ -867,7 +1066,24 @@ System.out.println(R);
 - The informative annotation `@FunctionalInterface` is recommended when a functional interface is declared
 - The above mentioned interfaces are all functional interfaces. 
 
+```java
+@FunctionalInterface
+public interface Predicate < T >
+```
 ---
+
+### Homework...
+Consider this method in the interface `Stream`:
+```java
+Optional < T > reduce(BinaryOperator < T > accumulator)
+```
+- What is `Optional`
+- What does `reduce` do?
+- What is `BinaryOperator` ? 
+- Can you use `reduce` in a simple example?
+
+---
+
 ### Streams
 Finally, functional programming in Java!
 
