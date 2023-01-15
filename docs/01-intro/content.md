@@ -248,7 +248,7 @@ public boolean equals(Object obj) {
   }
   Person p = (Person) obj;
   // Assuming that ID is unique 
-  return this.getId() == obj.getId();
+  return this.getId() == p.getId();
 }
 ```
 
@@ -800,7 +800,7 @@ environnements, ...) to test, verify or even add code (more on next CMs)
 
 Programming actions in GUIs:
 ```java
-Interface EventHandler< T extends Event >{
+interface EventHandler< T extends Event >{
     void handle(T event);}
 ```
 
