@@ -812,7 +812,7 @@ btn.setOnAction(new EventHandler< ActionEvent >() {
         }
 });
 ```
-- Creates an anonymous class _extending_ `EventHandler` and 
+- Creates an anonymous class _implementing_ `EventHandler` and 
 _overriding_ the method `handle`.
 - Too complicated, right?
 
@@ -961,7 +961,7 @@ System.out.println(Arrays.toString(L));
 
 ---
 ### Streams
-- Lazy structures! (elements are consumed when needed)
+- __Lazy structures__! (elements are consumed when needed)
 - Quite good for processing large amounts of data (without storing it in memory).
 ---
 ### Streams
