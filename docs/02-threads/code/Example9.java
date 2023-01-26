@@ -23,8 +23,8 @@ public class Example9 extends Thread {
             // The lock on this.D must be acquired before
             // executing the synchronized block
             synchronized(this.D){
-                // At this point, no other thread can execute
-                // simultaneously this code. 
+                // At this point, no other thread can have
+                // a lock on D
                 int temp = this.D.getSum();
                 D.setSum(temp + this.step);
             } // At this point the lock on D is released

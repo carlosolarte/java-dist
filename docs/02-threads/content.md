@@ -142,9 +142,14 @@ x += 1 ;
 ### Threads
 - Many applications require concurrent executions.
 - Think about a cloud system: 
- * Many users request files simultaneously 
- * Users should not wait for too long to get access to the files
- * A user can download several files at the same time. 
+ * Many users request files _simultaneously_ 
+ * Users should not _wait_ for too long to get access to the files
+ * A user can download several files at the _same time_. 
+
+---
+### Threads
+- Many applications require concurrent executions.
+- Think about a cloud system: 
 - But also extra difficulties show up:
  * What about 2 users modifying the same file?
  * Denial-of-service attacks 
@@ -167,7 +172,7 @@ Two ways of implementing concurrent executions:
  may create other threads. 
 ---
 ### Threads
-- Threads is a  good solutions to lunch asynchronous tasks. 
+- Threads is a  good solutions to lunch __asynchronous__ tasks. 
 - It is possible to use _executors_ to manage the concurrent executions  (more on this later). 
 ---
 ### Threads
@@ -438,7 +443,7 @@ public class Example6 extends Thread {
 ---
 ### Synchronized methods
 - A simple strategy for preventing _thread interference_.
-- Two invocations of synchronized methods on the same object __cannot interleave__
+- Two invocations of a synchronized method on the same object __cannot interleave__
 - If a thread is currently executing the synchronized method, all other threads invoking synchronized methods on the same object _block_ (__suspending__ their execution). 
 - This establishes a __happens-before__ relationship with any subsequent invocation of a synchronized method for the same object.
 
@@ -563,7 +568,7 @@ public class Example9 extends Thread {
 ---
 ### Synchronized methods vs synchronized statements
 
-- We can then achieve a  _fine grained synchronization_
+- We can  achieve a  _fine grained synchronization_
 - But better to know what we are doing! (`Inc1Inc2.java`)
 
 ```java
@@ -605,6 +610,31 @@ public class Example10 {
 
         Thread T1 = new Thread(inc);
         Thread T2 = new Thread(dec);
+```
+
+---
+### Lambdas
+
+A further example... does it work?
+
+```java
+class Data{
+    int sum = 0;
+    public void inc(int x){ this.sum += x; }
+    public synchronized void dec(int x){ this.sum -= x; }
+    public int get(){ return this.sum; }
+}
+
+public class ThreadLambda {
+    public static void main(String arg[]){
+        Data d = new Data();
+        Runnable inc = () ->{
+            for(int i=1;i<1000;i++) d.inc(1); };
+        Runnable dec = () ->{
+            for(int i=1;i<1000;i++) d.dec(1); };
+
+        // start, join etc
+        // print d.get()
 ```
 
 ---
@@ -740,7 +770,7 @@ used to inspect the result of a computation.
 ```java
 import java.util.concurrent.*;
 
-class ComputingPI implements Callable<Double>{
+class ComputingPI implements Callable< Double >{
     public Double call(){
         try{
             // Long computation computing PI
@@ -758,7 +788,7 @@ public class Example14 {
     public static void main(String arg[]){
         try{
              ExecutorService service = Executors.newFixedThreadPool(2);
-             Future<Double> value = service.submit(new ComputingPI());
+             Future< Double > value = service.submit(new ComputingPI());
              System.out.println("Invoking get on the future");
              System.out.println(value.get());
              System.out.println("After get");
@@ -775,7 +805,7 @@ public class Example14 {
 ### Submitting several tasks
 `Example15.java`
 ```java
-class ComputingSum implements Callable<Double>{
+class ComputingSum implements Callable< Double >{
     private double[] data ;
     int ini, end;
 
@@ -810,8 +840,8 @@ public class Example15 {
              ComputingSum C1 = new ComputingSum(data,0,2);
              ComputingSum C2 = new ComputingSum(data,2,4);
 
-             Future<Double> v1 = service.submit(C1);
-             Future<Double> v2 = service.submit(C2);
+             Future< Double > v1 = service.submit(C1);
+             Future < Double > v2 = service.submit(C2);
              System.out.println(v1.get() + v2.get());
              service.shutdown();
              long finish = System.currentTimeMillis();
