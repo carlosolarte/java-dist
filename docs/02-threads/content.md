@@ -1041,8 +1041,8 @@ class ProdConQueue{
 ```
 ---
 ### Streams and concurrency
-- Most of the problems of concurrent executions are due to shared resources. 
-- If objects are immutable, such problems do not exist anymore!
+- Most of the problems of concurrent executions are due to __shared resources__. 
+- If objects are _immutable_, such problems do not exist anymore!
 - Processing streams (in a functional way) in parallel is a neat example of that. 
 
 ---
