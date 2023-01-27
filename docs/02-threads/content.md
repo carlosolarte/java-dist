@@ -80,7 +80,7 @@ found = false;
 y=1;
 while(not found){
   y--;
-  if (f(x) ==0) found = true;
+  if (f(y) ==0) found = true;
 }
 ```
 <!-- .element: style="float: right; width: 48%" -->
@@ -104,7 +104,7 @@ while(not found){
 y=1;
 while(not found){
   y--;
-  if (f(x) ==0) found = true;
+  if (f(y) ==0) found = true;
 }
 ```
 <!-- .element: style="float: right; width: 48%" -->
