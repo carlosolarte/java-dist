@@ -13,9 +13,9 @@ public class Client {
             System.out.println("Connection [OK]");
 
             // Creating an outputstream to send data
-            DataOutputStream saida = new DataOutputStream(s_client.getOutputStream());
+            DataOutputStream output = new DataOutputStream(s_client.getOutputStream());
             // Send a message 
-            saida.writeUTF("Hello World... now on a socket ;-)");
+            output.writeUTF("Hello World... now on a socket ;-)");
             System.out.println("Message sent!");
 
 

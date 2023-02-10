@@ -1,6 +1,7 @@
 import java.util.*;
 
 /** A simple interface */
+@FunctionalInterface
 interface Hi{
     public String hi(String name);
 }

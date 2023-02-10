@@ -9,8 +9,8 @@ class Data{
     public void setSum(int sum){this.sum = sum;}
 }
 public class Example9 extends Thread {
-    public int step, n;
-    public Data D;
+    private int step, n;
+    private Data D;
     public Example9(int step, int n, Data D){
         this.step = step;
         this.n = n;
@@ -33,6 +33,7 @@ public class Example9 extends Thread {
 
     public static void main(String arg[]){
         Data D = new Data();
+        // Note that D is shared by the two threads 
         Example9 E1 = new Example9(1,10000,D);
         Example9 E2 = new Example9(-1,10000,D);
         E1.start();

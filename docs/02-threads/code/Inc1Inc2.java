@@ -22,10 +22,6 @@ public class Inc1Inc2 {
         }
     }
 
-    public String toString(){
-        return "c1= " + this.c1 + ", c2= " + this.c2;
-    }
-
     public void inc2() {
         // Before executing c2++, a lock on lock1 must be acquired 
         synchronized(lock2) { 
@@ -37,6 +33,11 @@ public class Inc1Inc2 {
             }
             catch(InterruptedException E){}
         }
+    }
+
+    @Override
+    public String toString(){
+        return "c1= " + this.c1 + ", c2= " + this.c2;
     }
 
     public static void main(String arg[]){

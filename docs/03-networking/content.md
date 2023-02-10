@@ -60,7 +60,7 @@ __UDP__ : User Datagram Protocol
 - The server has a socket that is __bound__ to a specific port number.
 - The client sends a _connection request_, binding a _local port number_ used to establish the connection. 
 - If the server _accepts_ the connection, the server creates a __new socket__ to communicate with the client
-- The server may continue _listening and _waiting_ for other connections. 
+- The server may continue _listening and waiting_ for other connections. 
 - The created socket and the socket in the client can be used for bidirectional communication. 
 ---
 ### Client and Server

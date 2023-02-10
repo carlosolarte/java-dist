@@ -618,6 +618,7 @@ public class Example10 {
 A further example... does it work?
 
 ```java
+// ThreadLambda.java
 class Data{
     int sum = 0;
     public void inc(int x){ this.sum += x; }
@@ -1048,6 +1049,7 @@ class ProdConQueue{
 ---
 ### Streams and concurrency
 ```java
+// ConcurrentStream.java
 int data[] = new int[] {1,2,3,4,5,6,7,8,9,10};
 int sum = Arrays.stream(data)
     . parallel() // Processing the stream in parallel

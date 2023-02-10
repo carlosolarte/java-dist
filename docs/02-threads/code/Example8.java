@@ -10,7 +10,7 @@ class Data{
             L.lock();
             System.out.println(Thread.currentThread() + " enter.");
             Data.sum += step;
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             System.out.println(Thread.currentThread() + " exit.");
             L.unlock();
         }
@@ -30,13 +30,19 @@ public class Example8 extends Thread {
     @Override
     public void run(){
         for(int i=1;i<=this.n;i++){
-            Data.update(this.step);
+            try{
+                Data.update(this.step);
+                Thread.sleep(100);
+            }
+            catch (Exception E){
+
+            }
         }
     }
 
     public static void main(String arg[]){
-        Example8 E1 = new Example8(1,3);
-        Example8 E2 = new Example8(-1,3);
+        Example8 E1 = new Example8(1,20);
+        Example8 E2 = new Example8(-1,20);
         E1.setName("E1");
         E2.setName("E2");
         E1.start();
