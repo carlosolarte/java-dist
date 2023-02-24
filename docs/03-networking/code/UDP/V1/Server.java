@@ -21,6 +21,7 @@ public class Server extends Thread{
             try{
                 // receive request
                 byte [] buffer = new byte[256];
+                // Datagram for receiving packets 
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
                 

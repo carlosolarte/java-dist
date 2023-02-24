@@ -14,6 +14,7 @@ public class Client {
             // Preparing the request to the server
             byte[] buffer = new byte[256];
             InetAddress address = InetAddress.getByName("127.0.0.1");
+            // Datagram for sending packets 
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 12345);
             socket.send(packet);
 

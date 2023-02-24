@@ -175,8 +175,8 @@ java.io.EOFException ...
 ### Example 2: Sending data
 #### A client in Python
 
-We need to use a more "low level" class in Java to
-receive strings: 
+We need to use another class in Java to
+read the strings: 
 ```java
 BufferedReader input_client = new BufferedReader(new InputStreamReader(client.getInputStream()));
 String txt = input_client.readLine();
@@ -246,6 +246,7 @@ class ServerTask{
       Person P = new Person(name, date);
       // 4. Send to the client the unique identifier
       output_client.writeObject(P.getId());
+      // Close the connection
       this.client.close();
       return P;
   }
@@ -253,7 +254,7 @@ class ServerTask{
 ---
 ### Example 3: A little protocol
 - The server is an infinite loop waiting for connections:
-- It stores a collection of people
+- It maintains a collection of people
 
 ```java
 static List< Person > database = new ArrayList<>();
@@ -276,9 +277,11 @@ public static void main(String arg[]) {
 ### Example 3: A little protocol
 The client must follow the protocol
 ```java
-String name = arg[0];
+// Name and date from the command line (arg[])
+String name = arg[0]; 
 SimpleDateFormat DF = new SimpleDateFormat("yyyy/mm/dd");
 Date date = DF.parse(arg[1]);
+
 Socket s_client = new Socket("127.0.0.1", 12345);
 System.out.println("Connection [OK]");
 // Creating an outputstream to send data
@@ -295,7 +298,7 @@ System.out.println("ID obtained: " + id );
 ### Example 4: Concurrent Server
 #### Server 
 - Now the server may process several request concurrently
-- The management of threads is delegated to  `ExecutorService` 
+- The management of threads is delegated to  an `ExecutorService` 
 
 #### Client
 - __For illustration__, the client sends several request to the server
@@ -340,6 +343,7 @@ public void start(){
 	try {
 		System.out.println("Waiting for connections...");
 		while(true){
+            // New connections are handled by new threads
 			this.executor.execute(new ServerTask(server.accept()));
 			System.out.println("Connection  [OK] ");
 		}
@@ -414,6 +418,9 @@ _Synchronization_:
 - _UDP_: Protocol for sending packages (__datagrams__)
 - Useful when there is no need of a dedicated _point-to-point_ channel
 
+> A datagram is an independent, __self-contained__ message sent over the network
+> whose arrival, arrival time, and content are not guaranteed.
+
 ---
 ### Datagrams
 
@@ -436,6 +443,7 @@ public void run(){
 		try{
 			// receive request
 			byte [] buffer = new byte[256];
+            // Datagram for receiving packets 
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			socket.receive(packet);
 			
@@ -452,8 +460,7 @@ public void run(){
 ---
 ### Datagrams
 #### Client
-- It creates a `DatagramSocket` _without port_
-- An available port is chosen. 
+- It creates a `DatagramSocket`
 - It prepares a datagram (the __request__)
 - The datagram is sent to the server
 - It waits for the answer (in the form of a datagram)
@@ -467,6 +474,7 @@ DatagramSocket socket = new DatagramSocket();
 // Preparing the request to the server
 byte[] buffer = new byte[256];
 InetAddress address = InetAddress.getByName("127.0.0.1");
+// Datagram for sending packets
 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 12345);
 socket.send(packet);
 
@@ -624,7 +632,7 @@ For executing the example:
 ### RMI
 - Remote calls from different clients might be executed concurrently. 
 - Better to avoid _race conditions_!
-- Interoperability with other languages is possible (CORBA / IIOP)
+
 ---
 ### RMI
 - An access to a  _remote object_, implementing `Remote`,  is by reference : Clients may change the state
