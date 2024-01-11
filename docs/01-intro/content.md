@@ -1,10 +1,10 @@
 
-## Distributed Java Programming (G4INFPDJ)
+## Distributed Java Programming
 
 --- 
 Carlos Olarte
 
-email: <olarte@lipn.fr>
+email: <olarte@lipn.univ-paris13.fr>
 
 ---
 ### About this course
@@ -15,6 +15,8 @@ email: <olarte@lipn.fr>
 #### TPs: 24h
 - IDEs: Eclipse or Netbeans
 - My favorite... vim ! ;-)
+
+[Question](https://app.wooclap.com/events/ASZRJB/questions/659fd8f1e86394d958e6bc96)
 
 ---
 ### About this course
@@ -28,8 +30,8 @@ email: <olarte@lipn.fr>
 
 1. Moderate size project (small distributed application). 
 2. Exam 
+3. Quizzes 
 
- N = (2 * exam + project)/3
  ---
 ### About this course
 
@@ -100,6 +102,7 @@ public class Person {
     private static final String companyExp 
       = new String("unknown");
 ```
+[Question](https://app.wooclap.com/events/ASZRJB/questions/659fda04dfed03840e20e1fc)
 ---
 ### Classes
 #### Types
@@ -132,9 +135,9 @@ pubic String getAddress(){
 }
 ```
 * Fields should be `private`
-* read/write control on field values
-* easier for logging, security 
-* getters and setters must be systematically used!
+* Reading/writing on field values must be controlled 
+* Easier for logging and security 
+* Getters and setters must be systematically used!
 
 ---
 ### Classes
@@ -227,6 +230,7 @@ String s3 = "hello" ;
 // s1 == s2 ?
 // s1 == s3 ?
 ```
+[Question](https://app.wooclap.com/events/ASZRJB/questions/659fdac9fb3129089515cded)
 ---
 ### Equals
 - `==` : The same object in memory
@@ -264,6 +268,8 @@ p2.setAddress("...");
 
 Does `p1` change?
 
+[Question](https://app.wooclap.com/events/ASZRJB/questions/659fdb1afb3129089515f105)
+
 ---
 ### Cloning 
 
@@ -276,7 +282,7 @@ Person p2 = p1.clone() ;
 ```
 The contract:
 ```java
-- x.equals(x.clone)
+- x.equals(x.clone())
 - x != x.clone()
 - x.getClass() == x.clone().getClass()
 ```
@@ -349,8 +355,11 @@ abstract class Animal{
         return this.weight;
     }
 }
+
 ```
 Some methods are implemented and others are `abstract`. 
+
+Why `final` in the method `getWeight()`?
 ---
 ### Abstract classes
 ```java
@@ -640,9 +649,8 @@ public class Enseignant {
 }
 ```
 ---
-### Java 1.5
+### Generic Types (From Java 1.5)
 
-- Generic types
 ```java
 List < String > L = new ArrayList < > () ;
 ```
@@ -675,6 +683,8 @@ Assume that `A` is a subclass of `B`:
 -  An object of type `A` can be added in a `List< B >`?
 -  An object of type `B` can be added in a `List< A >`?
 -  Is `ArrayList < A >` a subclass of `List < A >`?
+
+[Question](https://app.wooclap.com/events/ASZRJB/questions/659fddd226fca2b2cfd71250)
 
 ---
 ### Generic Types: Wildcards 
@@ -720,9 +730,9 @@ public class Joker{
 ```
 
 ---
-### Java 1.5
+### Iteration
 
-Iteration becomes easier:
+Iteration becomes easier from Java 1.5
 ```java
 Interface Iterable< T >{
      Iterator< T > iterator() ;
@@ -1043,7 +1053,7 @@ L.stream()
 ```
 Here the signatures for _Map_ and _Function_:
 ```java
-Stream< R > map(Function< ? super T,? extends R > mapper)`
+Stream< R > map(Function< ? super T,? extends R > mapper)
 interface Function< T,R >{R apply(T t);}
 ```
 
