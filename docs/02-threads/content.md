@@ -172,7 +172,7 @@ Two ways of implementing concurrent executions:
  may create other threads. 
 ---
 ### Threads
-- Threads is a  good solutions to lunch __asynchronous__ tasks. 
+- Threads are a  good solutions to lunch __asynchronous__ tasks. 
 - It is possible to use _executors_ to manage the concurrent executions  (more on this later). 
 ---
 ### Threads
@@ -206,7 +206,7 @@ public class Example1{
 ### Start and Join
 #### Start
 - Begins the execution.
-- Note: constructing a thread does not mean executing it. 
+- Note: constructing a thread __does not mean executing it__. 
 
 #### Join
 - The method `join` __wait__ for the completion of a thread. 
