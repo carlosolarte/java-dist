@@ -417,7 +417,7 @@ __Thread interference:__
 
 __Memory Consistency Errors:__
 - Inconsistent views of the memory (e.g., cache). 
-- There is no control of the ordering of the events. 
+- There is __no control__ of the _ordering_ of the events. 
 - What value should I read? Before or after the execution of another thread?
 - Synchronization  mechanisms must impose a _happens-before relationship_ (e.g., `join`).
 
@@ -444,7 +444,7 @@ public class Example6 extends Thread {
 ### Synchronized methods
 - A simple strategy for preventing _thread interference_.
 - Two invocations of a synchronized method on the same object __cannot interleave__
-- If a thread is currently executing the synchronized method, all other threads invoking synchronized methods on the same object _block_ (__suspending__ their execution). 
+- If a thread is currently executing the synchronized method, all other threads invoking _any_ synchronized methods on the same object _block_ (__suspending__ their execution). 
 - This establishes a __happens-before__ relationship with any subsequent invocation of a synchronized method for the same object.
 
 ---
@@ -615,7 +615,7 @@ public class Example10 {
 ---
 ### Lambdas
 
-A further example... does it work?
+A further example... Does it always return 0?
 
 ```java
 // ThreadLambda.java
@@ -642,7 +642,7 @@ public class ThreadLambda {
 ### Returning Values
 - Methods `run` and `start` do not return a value.
 - How can we know the result of a (long) computation?
-- Note also that `start` is a non-blocking operation. 
+- Note also that `start` is a __non-blocking__ operation. 
 
 ---
 ### Returning values
@@ -683,7 +683,7 @@ while(T1.isDone()==false){
 }
 // The computation has finished
 ```
-But what if `T1` ends before 2 seconds? We are "wasting" computation time. 
+But what if `T1` ends before 2 seconds? We are __wasting__ computation time. 
 
 ---
 ### Returning values
@@ -695,7 +695,7 @@ Alternatively, we can use `join` as we did before:
             System.out.println(T1.getResult());
         }
 ```
-There is a _barrier_ that must be passed before print the result. 
+There is a _barrier_ that must be passed before printing the result. 
 ---
 ### Returning values
 At the end of the computation, the method `run` may
@@ -855,7 +855,7 @@ public class Example15 {
 ---
 ### Executors
 - The interface _ExecutorService_ encapsulates the management of threads. 
-- A more clear separation of concerns. 
+- A more clear __separation of concerns__. 
 - Implementations of this interface executes a `Runnable` (or `Callable`) task at some time in the future. 
 - The executor _reuses_ existing threads (workers, thread pools).  
 - Tasks are submitted to the pool via an internal queue
