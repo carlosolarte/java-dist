@@ -147,9 +147,9 @@ Socket s_client = new Socket("127.0.0.1", 12345);
 System.out.println("Connection [OK]");
 
 // Creating an outputstream to send data
-DataOutputStream saida = new DataOutputStream(s_client.getOutputStream());
+DataOutputStream output = new DataOutputStream(s_client.getOutputStream());
 // Send a message 
-saida.writeUTF("Hello World... now on a socket ;-)");
+output.writeUTF("Hello World... now on a socket ;-)");
 System.out.println("Message sent!");
 ```
 ---
@@ -254,7 +254,7 @@ class ServerTask{
 ---
 ### Example 3: A little protocol
 - The server is an infinite loop waiting for connections:
-- It maintains a collection of people
+- It stores a collection of people (a simple database)
 
 ```java
 static List< Person > database = new ArrayList<>();
@@ -408,13 +408,13 @@ _Synchronization_:
 - There is no need to deal with end of strings and
   formatting. 
 - For dealing with only text processing,
-  `BufferedOutpoutStream` is a good choice. 
+  `BufferedOutputStream` is a good choice. 
 - Similarly for the `InputStream` hierarchy. 
 
 ---
 ### Datagrams
 
-- The arrival and order of arrival are not guaranteed. 
+- The order of messages' arrival is not guaranteed. 
 - _UDP_: Protocol for sending packages (__datagrams__)
 - Useful when there is no need of a dedicated _point-to-point_ channel
 
@@ -539,7 +539,7 @@ while(true){
 ---
 ### RMI
 The RMI protocols builds on top of:
-- Java Object _Serialization_: marshaling  and returning data
+- Java Object _Serialization_.
 - The HTTP protocol: to _POST_ remote method invocations. 
 ---
 ### RMI

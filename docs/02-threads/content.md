@@ -963,13 +963,13 @@ class Consumer implements Runnable{
 - The thread is suspended until the notification
 - Moreover, the lock (on `B`) is _released_
 - Other threads can then acquire the lock and eventually _notify_.
-- After notification, an _reacquiring the lock_, the waiting code resumes its execution. 
+- After notification, the lock must be  _reacquied_ and the waiting code resumes its execution. 
 
 ---
 ### Concurrent Collections
 - Producing/consuming items on a bounded structure is quite common. 
 - The interface `BlockingQueue` defines a Queue  whose
-operations `put` and `take` _block_.
+operations `put` and `take` _block_ the execution.
 - `BlockingQueue` implementations are _thread-safe_.
 ---
 
