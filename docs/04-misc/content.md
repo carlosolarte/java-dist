@@ -170,7 +170,7 @@ Example adapted from [here](http://blog.marcinchwedczuk.pl/creating-and-using-ad
 
 First an interface defining the attributes of the annotation
 ```java
-@Target(ElementType.TYPE) // only on classes and interface
+@Target(ElementType.TYPE) // only on classes and interfaces 
 @Retention(RetentionPolicy.RUNTIME) //To be used on runtime
 public @interface Run {
     String method() default "run";
