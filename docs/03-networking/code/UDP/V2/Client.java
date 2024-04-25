@@ -11,7 +11,9 @@ public class Client {
             // Creating the multicast socket
             MulticastSocket socket = new MulticastSocket(12345);
             // Joining the group 
-            socket.joinGroup(InetAddress.getByName("224.0.0.0"));
+            //socket.joinGroup(InetAddress.getByName("224.0.0.0"));
+            InetAddress mcastaddr = InetAddress.getByName("224.0.0.0");
+            socket.joinGroup(new InetSocketAddress(mcastaddr, 0), null);
 
             while(true){
                 byte[] buffer = new byte[256];
