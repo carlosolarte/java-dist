@@ -1,1 +1,34 @@
-theme: jekyll-theme-slate
+title: Petri Nets 2025
+description: >- # this means to ignore newlines until "baseurl:"
+  46th International Conference on Theory and Application of Petri Nets and Concurrency 
+
+#baseurl: "/" # the subpath of your site, e.g. /blog
+#url: "https://lfmtp.org/" # the base hostname & protocol for your site
+
+
+# With GitHub Pages Gem
+#remote_theme: chrisrhymes/bulma-clean-theme
+remote_theme: chrisrhymes/bulma-clean-theme@v0.14.0
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll/scholar
+#   - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+exclude:
+  - vendor
+  - README.md
+
+# Scholar
+scholar:
+  bibliography_template: bibtex
+  details_layout: none
+
+permalink: pretty
+fixed_navbar: top
+
+
