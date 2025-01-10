@@ -29,8 +29,7 @@ email: <olarte@lipn.univ-paris13.fr>
 #### Grades
 
 1. Moderate size project (small distributed application). 
-2. Exam 
-3. Quizzes 
+2. Quizzes 
 
  ---
 ### About this course
@@ -134,7 +133,7 @@ pubic String getAddress(){
     return this.address;
 }
 ```
-* Fields should be `private`
+* Fields should be `private` (in general)
 * Reading/writing on field values must be controlled 
 * Easier for logging and security 
 * Getters and setters must be systematically used!
@@ -292,6 +291,7 @@ The contract:
 ```java
 class Person implements Cloneable{
   ...
+  @Override
   public Object clone() {
    Person leClone = null;
    try {
@@ -337,6 +337,24 @@ class B extends A implements X,Y {
 }
 ```
 ---
+### Inheritance 
+
+Is this problematic?
+
+```
+interface X{
+    int m();
+}
+interface Y{
+    int m();
+}
+class Z implements X,Y{
+    ...
+}
+```
+
+---
+
 ### Abstract classes
 ```java
 abstract class Animal{
