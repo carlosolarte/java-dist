@@ -172,7 +172,7 @@ Two ways of implementing concurrent executions:
  may create other threads. 
 ---
 ### Threads
-- Threads are a  good solutions to lunch __asynchronous__ tasks. 
+- Threads are a  good solutions to launch __asynchronous__ tasks. 
 - It is possible to use _executors_ to manage the concurrent executions  (more on this later). 
 ---
 ### Threads

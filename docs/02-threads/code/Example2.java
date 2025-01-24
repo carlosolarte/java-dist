@@ -29,7 +29,7 @@ public class Example2 extends Thread {
 
     public static void main(String arg[]){
         Example2 EH = new Example2("Hello", 10,1000);
-        Example2 EW = new Example2("World", 10, 1000);
+        Example2 EW = new Example2("World", 10, 300);
         EH.start();
         EW.start();
     }

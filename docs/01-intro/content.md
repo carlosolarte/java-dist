@@ -845,15 +845,6 @@ _overriding_ the method `handle`.
 - Too complicated, right?
 
 ---
-### Lambda expressions and streams
-What about data processing:
-- _filter_ the data according to some criteria
-- _for each_ item compute some information
-- ...
-
- Should we write different methods for different criteria and calculations? 
-
----
 ### Lambda expressions
 Here a class implementing an interface
 ```java
@@ -1037,7 +1028,7 @@ Stream< Grade > S =
 
 // Lazy: nothing is done at this point
 
-// toArray materializes the stream!
+// toArray materializes the stream
 System.out.println(Arrays.toString(S.toArray()));
 ```
 These are the signatures for _Filter_ and _Predicate_:  
