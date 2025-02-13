@@ -3,6 +3,8 @@
  * 1. It waits for the name of the person
  * 2. Then it expects the date birth
  * 3. It registers the person and returns a (unique) identifier
+ *
+ * NOTE: There is a little problem in this code (see Problem.java)
  */
 import java.net.*;
 import java.io.*;
@@ -42,7 +44,9 @@ class ServerTask implements Runnable{
 }
 
 public class Server {
+    // This is problematic 
     static List<Person> database = new ArrayList<>();
+    // Solution: Collections.synchronizedList (see Problem.java)
     public static final int NUMPROCS = 5 ;
     public static final int PORT = 12345 ;
     private ServerSocket server;

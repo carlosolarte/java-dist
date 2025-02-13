@@ -400,6 +400,104 @@ _Synchronization_:
 > _Asynchronous tasks_: The order in which the IDs arrive cannot be known/controlled. 
 
 ---
+### Example 4: Concurrent Server
+
+Do you see anything suspicious in the code of the server?
+
+---
+### Example 4: Concurrent Server
+
+Do you see anything suspicious in the code of the server?
+
+_Synchronization_ problem! 
+
+---
+### Example 4: Concurrent Server
+
+Let's see the problem with a little example: 
+
+```java
+class Task implements Runnable{
+    public static int NELEM = 1000;
+    private List< Integer > l;
+    public Task(List< Integer > l){
+        this.l = l;
+    }
+
+    public void run(){
+        Random random = new Random();
+        IntStream str = random.ints(0, 1000);
+        str
+            .limit(NELEM)
+            .forEach( (i) -> l.add(i));
+    }
+}
+
+```
+
+---
+### Example 4: Concurrent Server
+
+Let's see the problem with a little example: 
+```java
+public class Problem{
+    public static final int NTHREADS = 20;
+    public static void main(String arg[]){
+        List< Integer > l = new ArrayList< >();
+        Thread[] threads = new Thread[NTHREADS];
+        for (int i=0;i<NTHREADS;i++)
+            threads[i] = new Thread(new Task(l));
+        for (Thread t : threads)
+            t.start();
+
+        for (Thread t : threads){
+            try{
+                t.join();
+            }
+            catch(Exception E){
+            }
+        }
+        System.out.println(l.size());
+    }
+}
+
+```
+
+---
+### Example 4: Concurrent Server
+
+Now the execution:
+
+```java
+➜  java Problem
+4891
+➜  java Problem
+5359
+➜  java Problem
+4395
+➜  java Problem
+Exception in thread "Thread-16" java.lang.ArrayIndexOutOfBoundsException: Index 16 out of bounds for length 15
+```
+
+---
+### Example 4: Concurrent Server
+
+* ArrayList is _not_ __thread safe__.
+* If your data structure is shared by threads, use _thread safe_ versions of it. 
+* `java.collection` offers _thread safe_ implementations. 
+
+```java
+List< Integer > l = Collections.synchronizedList(new ArrayList < >());
+
+➜  java Problem
+20000
+➜  java Problem
+20000
+➜  java Problem
+20000
+```
+
+---
 ### Output and Input Streams
 - Note the use of `DataOutputStream` and
   `ObjectOutputStream`
