@@ -445,7 +445,7 @@ public class Problem{
     public static void main(String arg[]){
         List< Integer > l = new ArrayList< >();
         Thread[] threads = new Thread [ NTHREADS ];
-        for (int i=0; i < NTHREADS ; i++)
+        for (int i = 0; i < NTHREADS ; i++)
             threads [ i ] = new Thread(new Task(l));
         for (Thread t : threads)
             t.start();
