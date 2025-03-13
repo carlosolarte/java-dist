@@ -281,7 +281,7 @@ See more [here](https://docs.oracle.com/javase/8/docs/api/java/sql/package-summa
 2. Example with SQLite
 3. Changing the DBMS is almost immediate (modulo discrepancies of SQL)
 
-See the examples [here](./code/db)
+See the examples [here](./code/db/Connect.java)
 
 ---
 ### REST
