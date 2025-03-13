@@ -3,6 +3,7 @@
  */
 
 import java.util.Arrays;
+import java.util.stream.*;
 
 @FunctionalInterface
 interface IntConvert{
@@ -11,11 +12,9 @@ interface IntConvert{
 
 
 public class FInter{
-    public static String[] convert(int [] input, IntConvert C){
-        String [] res = new String[input.length];
-        for(int i=0;i<res.length;i++)
-            res[i] = C.convert(input[i]);
-        return res;
+    public static Stream<String> convert(Stream<Integer> input, IntConvert C){
+        return input.map( C::convert);
+
     }
     public static void main(String arg[]){
 
@@ -23,9 +22,12 @@ public class FInter{
         IntConvert toBin = (x) -> Integer.toString(x,2);
         IntConvert toHex = (x) -> Integer.toString(x,16);
 
-        int data[] = {1,5,23,47};
+        Integer data[] = {1,5,23,47};
 
-        System.out.println(Arrays.toString(FInter.convert(data, toBin)));
-        System.out.println(Arrays.toString(FInter.convert(data, toHex)));
+        convert(Arrays.stream(data), toBin).
+            forEach( System.out::println);
+        convert(Arrays.stream(data), toHex).
+            forEach( System.out::println);
+
     }
 }
