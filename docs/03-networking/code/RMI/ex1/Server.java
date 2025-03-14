@@ -16,13 +16,13 @@ public class Server implements PersonService {
     public Server() {}
 
 	@Override
-    public synchronized void addPerson(String name, Date bday){
+    public synchronized void addPerson(String name, Date bday)throws RemoteException {
         System.out.println("["+name+"] added");
 		this.database.add(new Person(name, bday));
 	}
 
     @Override
-    public synchronized List<Person> search(String name){
+    public synchronized List<Person> search(String name) throws RemoteException{
         return 
             this.database.stream()
                 .filter( p -> p.getName().contains(name))

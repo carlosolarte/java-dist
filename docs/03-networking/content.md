@@ -673,12 +673,12 @@ public class Server implements PersonService {
     public Server() {}
 
 	@Override
-    public synchronized void addPerson(String name, Date bday){
+    public synchronized void addPerson(String name, Date bday) throws RemoteException{
 		this.database.add(new Person(name, bday));
 	}
 
     @Override
-    public synchronized List< Person > search(String name){
+    public synchronized List< Person > search(String name) throws RemoteException{
         return this.database.stream()
                 .filter( p -> p.getName().contains(name))
                 .collect(Collectors.toList())
@@ -743,7 +743,7 @@ Suppose that we need an object to be notified when a new person is added:
 
 - We may send requests to the server each T seconds
 - But this is clearly not a good design
-- What about callbacks and notifications?
+- We will use instead _callbacks_ and notifications.
 
 ---
 ### RMI Callbacks
