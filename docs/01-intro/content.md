@@ -16,7 +16,7 @@ email: <olarte@lipn.univ-paris13.fr>
 - IDEs: Eclipse or Netbeans
 - My favorite... vim ! ;-)
 
-[Question](https://app.wooclap.com/events/ASZRJB/questions/659fd8f1e86394d958e6bc96)
+<!-- [Question](https://app.wooclap.com/events/ASZRJB/questions/659fd8f1e86394d958e6bc96) -->
 
 ---
 ### About this course
@@ -101,7 +101,7 @@ public class Person {
     private static final String companyExp 
       = new String("unknown");
 ```
-[Question](https://app.wooclap.com/events/ASZRJB/questions/659fda04dfed03840e20e1fc)
+<!-- [Question](https://app.wooclap.com/events/ASZRJB/questions/659fda04dfed03840e20e1fc) -->
 ---
 ### Classes
 #### Types
@@ -229,7 +229,7 @@ String s3 = "hello" ;
 // s1 == s2 ?
 // s1 == s3 ?
 ```
-[Question](https://app.wooclap.com/events/ASZRJB/questions/659fdac9fb3129089515cded)
+<!-- [Question](https://app.wooclap.com/events/ASZRJB/questions/659fdac9fb3129089515cded) -->
 ---
 ### Equals
 - `==` : The same object in memory
@@ -267,7 +267,7 @@ p2.setAddress("...");
 
 Does `p1` change?
 
-[Question](https://app.wooclap.com/events/ASZRJB/questions/659fdb1afb3129089515f105)
+<!-- [Question](https://app.wooclap.com/events/ASZRJB/questions/659fdb1afb3129089515f105) -->
 
 ---
 ### Cloning 
@@ -596,11 +596,6 @@ Next CMs:
 
 ---
 ### Collections
-Image from <a href="https://www.javatpoint.com/collections-in-java">JavaTPoint</a>
-
-<img src="https://static.javatpoint.com/images/java-collection-hierarchy.png">
----
-### Collections
 
 Defining a simple class:
 ```java
@@ -702,7 +697,7 @@ Assume that `A` is a subclass of `B`:
 -  An object of type `B` can be added in a `List< A >`?
 -  Is `ArrayList < A >` a subclass of `List < A >`?
 
-[Question](https://app.wooclap.com/events/ASZRJB/questions/659fddd226fca2b2cfd71250)
+<!-- [Question](https://app.wooclap.com/events/ASZRJB/questions/659fddd226fca2b2cfd71250) -->
 
 ---
 ### Generic Types: Wildcards 
