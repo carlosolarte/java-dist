@@ -1034,7 +1034,10 @@ interface Predicate< T >{ boolean test(T t);}
 ```
 ---
 ### Streams
-Without materializing the stream
+Without materializing the stream (_much better!_).
+
+__Avoid__ to materialize the stream when possible. 
+
 ```java
 L.stream()
       .filter((Grade G) -> G.getGrade() >= 5.0)
