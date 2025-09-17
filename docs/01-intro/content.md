@@ -1094,9 +1094,9 @@ Consider this method in the interface `Stream`:
 ```java
 Optional < T > reduce(BinaryOperator < T > accumulator)
 ```
-- What is `Optional`
+- What is `Optional`?
 - What does `reduce` do?
-- What is `BinaryOperator` ? 
+- What is `BinaryOperator`? 
 - Can you use `reduce` in a simple example?
 
 ---
