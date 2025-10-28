@@ -564,7 +564,7 @@ public class Example9 extends Thread {
 - Consider two operations `inc1` and `inc2`
 - These operations act on _different_ resources
 - Hence, it is legal to observe the concurrent execution of them
-- But two different threads __cannot__ execute `inc1` at the same time (the same for `inc2`). 
+- But two different threads __cannot__ execute `inc1` (on the __same__ object) at the same time (the same for `inc2`). 
 ---
 ### Synchronized methods vs synchronized statements
 
