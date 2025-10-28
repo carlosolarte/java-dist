@@ -592,8 +592,8 @@ System.out.println(answer);
 ### Broadcasting
 #### Server
 
-1. It opens any port to send the messages
-2. It send messages to a particular port (that the _clients knows_)
+1. It opens any port to send the messages.
+2. It send messages to a particular port (that the _clients know_).
 
 ```java
 while(true){
@@ -691,7 +691,7 @@ public class Server implements PersonService {
 The server must also:
 1. _Export_ the object, thus allowing it to receive incoming __remote__ invocations
 2. Behind the scenes, this means opening a TCP port to handle connections, sending data, etc. 
-3. _Register_ the object on a _name service_. Hence, the client can easily find it by using a name!
+3. _Register_ the object on a _name service_. Hence, the client can easily find it by using a name. 
 
 ---
 ### RMI
