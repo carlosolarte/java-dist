@@ -1229,10 +1229,9 @@ thread that some state condition may now be true.
 ### Alternative 3: Conditions
 - The philosopher takes a _lock_ (an object shared by all the threads).
 - _While_ the 2 forks are not available, it _waits_. 
--  While waiting, the _lock_ is __released__ for other threads (the system continues working!)
-- When _notified_ the thread checks again the condition
-- If the condition is true, the lock is kept and the
-operations are safely performed. 
+-  While waiting, the _lock_ is __released__ for other threads (the system _continues working_).
+- When _notified_ the thread checks again the condition.
+- If the condition is true, the lock is kept and the operations are safely performed. 
 ---
 ### Alternative 3: Conditions
 ```java
