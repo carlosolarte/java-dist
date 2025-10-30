@@ -239,7 +239,7 @@ class ServerTask{
       ObjectInputStream input_client = new ObjectInputStream(client.getInputStream());
       ObjectOutputStream output_client = new ObjectOutputStream(client.getOutputStream());
       // 1. Receive the name
-      String name = input_client.readObject();
+      String name = (String) input_client.readObject();
       // 2. Receive a date
       Date date = (Date) input_client.readObject();
       // 3. Create the person

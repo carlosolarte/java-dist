@@ -13,7 +13,7 @@ public class Covid{
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
             .header("Accept", "application/json")
-            .uri(URI.create("https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/metadata"))
+            .uri(URI.create("https://restcountries.com/v3.1/all?fields=name"))
             .build();
 
         // sendAsync returns a CompletableFuture<T>

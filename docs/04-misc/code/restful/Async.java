@@ -1,10 +1,10 @@
 /**
  * This is an example of an asynchronous HTTP request
  */
-import java.net.http.*;
 import java.io.*;
 import java.net.*;
-import java.net.http.HttpResponse.*;
+import java.net.http.*;
+import java.net.http.HttpRequest;
 import java.util.concurrent.CompletableFuture;
 
 public class Async{
@@ -17,7 +17,7 @@ public class Async{
 
         // sendAsync returns a CompletableFuture<T>
         // Hence, this call does not block
-        CompletableFuture<HttpResponse<String>> response = client.sendAsync(request, BodyHandlers.ofString()) ;
+        CompletableFuture<HttpResponse<String>> response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()) ;
         System.out.println("After the call");
 
         response

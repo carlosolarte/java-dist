@@ -307,10 +307,6 @@ Key principles:
 ---
 ### REST
 
-Here an [API](https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/metadata) for COVID data:
-- The response uses the JSON format
-- Easy to be read/accessed 
-- Java 11 classes `HTTPClient`, `HTTPRequest` and `HTTPResponse` can be used to perform HTTP requests.
 
 We have two alternatives: synchronous or asynchronous requests. 
 
@@ -324,12 +320,6 @@ Example of [synchronous](./code/restful/Sync.java) request.
 
 Example of  [asynchronous](./code/restful/Async.java) request. 
 
----
-### REST
-
-The previous code can be used to access the COVID API : 
-
-See [Example](./code/restful/Covid.java)
 
 ---
 ### REST
@@ -346,10 +336,7 @@ Here another example of a RESTful API ([countries](https://restcountries.com/)):
 There are some libraries allowing to map JSON objects to Java Objects (or Maps). 
 
 - [Here](./code/restful/Country.java)  an example using [gson](https://github.com/google/gson)
-- [Here](./code/restful/CountryCovid.java) a more interesting example using [jackson](https://github.com/FasterXML/jackson)
-  * Two sources of data are used
-  * Operations on the three representation of JSON objects are used
-  * Gson is also used here... but Jackson could be used for the whole job. 
+- It is also possible to use [jackson](https://github.com/FasterXML/jackson)
 
 ---
 ### JavaDoc
