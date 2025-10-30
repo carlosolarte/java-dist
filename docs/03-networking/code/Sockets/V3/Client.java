@@ -27,7 +27,7 @@ public class Client {
             ObjectOutputStream output = new ObjectOutputStream(s_client.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(s_client.getInputStream());
             // Send a message 
-            output.writeUTF(name);
+            output.writeObject(name);
             output.writeObject(date);
             // Receiving the ID
             UUID id = (UUID) input.readObject();
