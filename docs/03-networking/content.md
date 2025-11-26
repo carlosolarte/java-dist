@@ -205,6 +205,7 @@ How can we send a "Date"?
 - _Serialization_: representing an object as a sequence of bytes
 - _Deserialization_: from a sequence of bytes to objects
 - `ObjectOutputStream` and `ObjectInputStream`: high level classes for reading/writing (serialized) objects. 
+- Construct the `ObjectOutputStream` first at both ends. 
 
 >Note that the class `Date` implements `Serializable`
 
