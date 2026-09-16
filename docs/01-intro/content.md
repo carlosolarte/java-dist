@@ -6,6 +6,10 @@ Carlos Olarte
 
 email: <olarte@lipn.univ-paris13.fr>
 
+Souheib Baarir (TP Group 2)
+
+email: <baarir@lipn.univ-paris13.fr>
+
 ---
 ### About this course
 #### CMs: 12h
