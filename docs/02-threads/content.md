@@ -457,7 +457,7 @@ public class Example6 extends Thread {
 - A simple strategy for preventing _thread interference_.
 - Two invocations of a synchronized method on the same object __cannot interleave__
 - If a thread is currently executing the synchronized method, all other threads invoking _any_ synchronized methods on the same object _block_ (__suspending__ their execution). 
-- This establishes a __happens-before__ relationship with any subsequent invocation of a synchronized method for the same object.
+- This establishes a __happens-before__ relationship with any subsequent invocation of a synchronized method for the __same object__.
 
 ---
 ### Locks and critical section (MUTEX: Dijkstra'65)
@@ -891,8 +891,8 @@ class Buffer{
     public Buffer(){
         this.data = new String[Buffer.size];
     }
-    public boolean isEmpty(){ return this.counter==0;}
-    public boolean isFull(){ return  this.counter==Buffer.size;}
+    public synchronized boolean isEmpty(){ return this.counter==0;}
+    public synchronized boolean isFull(){ return  this.counter==Buffer.size;}
 
     public synchronized void add(String S)
         throws ArrayIndexOutOfBoundsException{
@@ -1283,3 +1283,35 @@ private void eat() throws StateException, InterruptedException{
 }
 ```
 > _notifies_ that the state of the forks has changed. 
+
+---
+### Semaphores 
+
+- __synchronized__: mutual exclusion built into the language
+- __Lock__: explicit mutual exclusion with more control
+- __Semaphore__: controlled access with N permits
+- A binary semaphore can behave similarly to a mutex (but this is not its most interesting use)
+- The key use: At most N clients may use this service simultaneously
+
+---
+### Semaphores
+
+```java
+// SemTest.java
+    public SemTest(int nClients){
+        this.semaphore = new Semaphore(nClients);
+        R = new Resource();
+    }
+
+    public void useResource(){
+        try {
+            semaphore.acquire();
+            R.use();
+        } 
+        catch(InterruptedException E){}
+        finally {
+            semaphore.release();
+        }
+    }
+```
+

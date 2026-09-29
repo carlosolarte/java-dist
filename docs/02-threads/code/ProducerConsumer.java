@@ -14,8 +14,8 @@ class Buffer{
     public Buffer(){
         this.data = new String[Buffer.size];
     }
-    public boolean isEmpty(){ return this.counter==0;}
-    public boolean isFull(){ return  this.counter==Buffer.size;}
+    public synchronized boolean isEmpty(){ return this.counter==0;}
+    public synchronized boolean isFull(){ return  this.counter==Buffer.size;}
 
     public synchronized void add(String S)
             throws ArrayIndexOutOfBoundsException{
