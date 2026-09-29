@@ -8,6 +8,36 @@
 4. Synchronization 
 5. Pools of threads 
 ---
+
+### Introduction
+
+#### Why threads? 
+
+<style>
+.big { font-size: 1.35rem; }
+.small { font-size: .92rem; opacity: .82; }
+.timeline { display: grid; grid-template-columns: 120px 1fr; gap: .45rem .7rem; margin-top: 1rem; align-items: center; }
+.label { font-weight: 700; }
+.track { position: relative; height: 34px; background: #f4f4f4; border-radius: 8px; overflow: hidden; }
+.block { position: absolute; top: 5px; height: 24px; border-radius: 6px; background: #4f7cff; color: white; text-align: center; line-height: 24px; font-size: .8rem; }
+.block.alt { background: #28a37a; }
+.block.warn { background: #d88923; }
+.block.idle { background: repeating-linear-gradient(45deg,#ddd,#ddd 6px,#eee 6px,#eee 12px); color:#555; }
+.row { display: flex; gap: 1rem; align-items: stretch; margin-top: 1rem; }
+.card { flex: 1; border: 1px solid #ddd; border-radius: 14px; padding: 1rem; background: #fafafa; }
+.worker { border: 2px solid #555; border-radius: 14px; padding: .75rem; text-align: center; font-weight: 700; background: white; }
+.queue { display:flex; gap:.3rem; margin: .7rem 0; }
+.task { padding:.45rem .65rem; border-radius: 7px; background:#e7ecff; border:1px solid #c6d0ff; font-weight:700; }
+.center { text-align:center; }
+.arrow { font-size: 2rem; line-height: 1; }
+.question { font-size: 1.35rem; background:#fff8e6; border-left: 6px solid #e1a500; padding: .9rem 1rem; margin-top: 1rem; }
+.two { display:grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items:start; }
+pre.diagram { font-size: 1.05rem; background:#f7f7f7; padding:1rem; border-radius:12px; }
+</style>
+
+- _Key idea_: several activities can make progress during the same period of time.
+
+---
 ### Concurrency
 - Applications should perform _several tasks_ at the __same time__.
 - Specially when _IO operations_ are involved. 
