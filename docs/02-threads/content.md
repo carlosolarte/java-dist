@@ -978,6 +978,15 @@ class Consumer implements Runnable{
 - After notification, the lock must be  _reacquied_ and the waiting code resumes its execution. 
 
 ---
+
+### Monitors
+
+- __Monitor__ = mutual exclusion + condition waiting
+- Every object can be used as a monitor
+- _Intrinsic lock_: only one thread at a time may execute a synchronized region guarded by that object.
+- _Wait set_: threads can suspend themselves (`wait`) and later be awakened by `notify` or `notifyAll`.
+---
+
 ### Concurrent Collections
 - Producing/consuming items on a bounded structure is quite common. 
 - The interface `BlockingQueue` defines a Queue  whose
