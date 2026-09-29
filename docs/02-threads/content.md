@@ -176,6 +176,17 @@ Two ways of implementing concurrent executions:
 - Threads are a  good solutions to launch __asynchronous__ tasks. 
 - It is possible to use _executors_ to manage the concurrent executions  (more on this later). 
 ---
+
+### Concurrency vs Parallelism
+
+- _Concurrency_: several tasks are in progress during the same period of time.
+- _Parallelism:_ several tasks are actually executing at the same instant, typically on different cores.
+- The JVMs typically map platform threads to native operating-system threads. 
+- The OS scheduler can then place those threads on different cores (but this is not guaranteed). 
+- On a single-core machine, threads can still be _concurrent_, but they cannot normally execute Java instructions truly in *parallel*.
+
+---
+
 ### Threads
 A thread might be in different states:
 - __New__: when it is created (and not yet started)
@@ -196,7 +207,7 @@ public class Example1{
    T.start(); // Starting execution
    System.out.println(T.getState());
    try{
-       T.join(); // Wait for this thread to die
+       T.join(); // Wait for this thread to finish
        System.out.println(T.getState());
    }
    catch(InterruptedException E){
