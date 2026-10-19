@@ -881,7 +881,8 @@ public class Example15 {
 
 ---
 ### Producers and consumers
-First the buffer (with synchronized methods) `ProducerConsumer.java`
+First the buffer (with synchronized methods, although the synchronization
+between producers and consumers is done in the classes `Producer` and `Consumer`) `ProducerConsumer.java`
 ```java
 class Buffer{
     public final static int size = 4;
